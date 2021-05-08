@@ -1,0 +1,14 @@
+{
+    "games": [
+        {
+            "id": 0,
+            "starter_id": 0,
+            "words": [
+                {
+                    "value": "test",
+                    "author_id": 474549438417731584
+                }
+            ]
+        }
+    ]
+}
