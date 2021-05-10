@@ -13,7 +13,7 @@ class NumberGameModel:
             'numbers': [],
             'winner': 0
         }
-        self.actual = randint(1, max_num)
+        self.actual = 4  # randint(1, max_num)
 
     def add_num(self, num: Number):
         self.data['numbers'].append(num.__dict__)

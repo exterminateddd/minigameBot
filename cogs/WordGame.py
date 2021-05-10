@@ -24,10 +24,14 @@ class WordGame(commands.Cog):
 
         async def words_check(m: Message):
             if msg_count <= 1: return True
-            if m.channel.id == ch.id and m.author.id != last_msg.author.id:
-                return True
+            if m.channel.id == ch.id:
+                if m.author.id != last_msg.author.id:
+                    return True
+                else:
+                    await ctx.send('Не твоя очередь!')
             else:
-                await m.delete()
+                pass
+                # await m.delete()
 
         while True:
             msg: Message = await self.bot.wait_for('message', check=lambda m: m.channel.id == ch.id)
