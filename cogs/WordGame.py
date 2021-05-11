@@ -70,6 +70,9 @@ class WordGame(commands.Cog):
                     game.add_word(word=Word(word=msg.content, author_id=msg.author.id))
                 except (commands.errors.CommandInvokeError, errors.NotFound):
                     pass
+                if data['last_msg'].author.id == msg.author.id:
+                    await ctx.send(f'{msg.author.mention}, не твоя очередь!')
+                    continue
                 if ' ' in msg.content or not msg.content.isalpha():
                     continue
                 print('last', data['last_msg'].content)
