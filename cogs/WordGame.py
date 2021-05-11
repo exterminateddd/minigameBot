@@ -75,11 +75,12 @@ class WordGame(commands.Cog):
                     continue
                 if ' ' in msg.content or not msg.content.isalpha():
                     continue
-                print('last', data['last_msg'].content)
-                if msg.content[0] == data['last_msg'].content[-1]:
+                if msg.content[0] != data['last_msg'].content[-1]:
+                    await ctx.send(f'{msg.author.mention}, слово не подходит!')
+                else:
                     await ctx.send(f'{msg.author.mention} продолжает со словом {msg.content}')
                     data['count'] += 1
-                data['last_msg'] = msg
+                    data['last_msg'] = msg
 
         task = self.bot.loop.create_task(loop(data['last_msg']))
 
