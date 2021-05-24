@@ -3,6 +3,7 @@ from discord import Embed, Message, errors
 from classes.WordGameModel import WordGameModel, Word
 from asyncio import wait
 from pytimeparse import parse
+from utils import *
 
 import asyncio
 
@@ -11,7 +12,7 @@ class WordGame(commands.Cog):
     def __init__(self, bot):
         self.bot: commands.Bot = bot
 
-    @commands.command(aliases=['startWords', 'words', 'слова', 'начать_слова', 'начатьСлова'])
+    @commands.command(aliases=['startWords', 'words', 'слова', 'начать_слова', 'начатьСлова', 'города', 'cities'])
     @commands.has_permissions(ban_members=True)
     async def start_words(self, ctx: commands.Context, first_word: str = None, game_time: str = '5m'):
         try:
@@ -75,8 +76,8 @@ class WordGame(commands.Cog):
                     continue
                 if ' ' in msg.content or not msg.content.isalpha():
                     continue
-                if msg.content[0] != data['last_msg'].content[-1]:
-                    await ctx.send(f'{msg.author.mention}, слово не подходит!')
+                if msg.content[0] != data['last_msg'].content[-1] or not is_city_valid(msg.content.lower()):
+                    await ctx.send(f'{msg.author.mention}, слово не подходит / не является названием города!')
                 else:
                     await ctx.send(f'{msg.author.mention} продолжает со словом {msg.content}')
                     data['count'] += 1
@@ -87,10 +88,11 @@ class WordGame(commands.Cog):
         done, pending = await asyncio.wait([task], return_when=asyncio.ALL_COMPLETED, timeout=parsed_time)
         print(task in done)
         if task in done:
-            game.stop()
             await end_callback(None)
         else:
+            task.cancel()
             await end_callback(data['last_msg'].author, data['count'])
+        game.stop()
 
 
 def setup(bot: commands.Bot):

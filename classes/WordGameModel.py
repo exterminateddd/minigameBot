@@ -1,23 +1,29 @@
 from json import load, dumps
 from .Word import Word
-from utils import get_all_word_games
+from utils import add_user_to_json
 from os import path
 
 
 class WordGameModel:
     def __init__(self, starter_id: str):
         self.words = []
-        self.data = {
-            'id': get_all_word_games()[-1]['id']+1,
-            'starter_id': starter_id,
-            'words': []
-        }
+        self.starter = starter_id
 
     def add_word(self, word: Word):
-        self.data['words'].append(word.__dict__)
+        self.words.append(word.__dict__)
 
     def stop(self):
-        data = load(open('data/words_hist.json', mode='r', encoding='windows-1251'))
-        data['games'].append(self.data)
-        f_ = open('data/words_hist.json', mode='w')
+        data = load(open('data/stats.json', mode='r', encoding='windows-1251'))
+        try:
+            if str(self.words[-1]['author_id']) not in data:
+                add_user_to_json(str(self.words[-1]['author_id']))
+                data[str(self.words[-1]['author_id'])] = {
+                    "words": 0,
+                    "number_wins": 0,
+                    "quiz_wins": 0
+                }
+            data[str(self.words[-1]['author_id'])]['words'] += 1
+        except:
+            pass
+        f_ = open('data/stats.json', mode='w')
         f_.write(dumps(data, indent=4))

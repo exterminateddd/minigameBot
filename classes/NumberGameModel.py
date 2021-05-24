@@ -1,5 +1,4 @@
 from json import load, dumps
-from utils import get_all_number_games
 from .Number import Number
 from random import randint
 
@@ -8,7 +7,6 @@ class NumberGameModel:
     def __init__(self, starter_id: str, max_num: int):
         self.words = []
         self.data = {
-            'id': get_all_number_games()[-1]['id']+1,
             'starter_id': starter_id,
             'numbers': [],
             'winner': 0

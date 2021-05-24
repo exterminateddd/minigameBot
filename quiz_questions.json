@@ -1,0 +1,43 @@
+{
+  "questions": [
+    {
+      "question": "Is there a color called 'white'?",
+      "answers": [
+        {
+          "value": "yes",
+          "right": true
+        },
+        {
+          "value": "no",
+          "right": false
+        }
+      ]
+    },
+    {
+      "question": "How many legs does a pig have?",
+      "answers": [
+        {
+          "value": "4",
+          "right": true
+        },
+        {
+          "value": "178",
+          "right": false
+        }
+      ]
+    },
+    {
+      "question": "A number?",
+      "answers": [
+        {
+          "value": "888",
+          "right": true
+        },
+        {
+          "value": "Hello world!",
+          "right": false
+        }
+      ]
+    }
+  ]
+}

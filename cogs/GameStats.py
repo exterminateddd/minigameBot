@@ -1,6 +1,6 @@
 from discord.ext import commands
 from discord import Member, Embed, Colour
-from utils import get_word_wins, get_num_wins
+from utils import *
 
 
 class GameStats(commands.Cog):
@@ -10,8 +10,9 @@ class GameStats(commands.Cog):
     @commands.command(aliases=['победы', 'wins', 'stat', 'stats', 'стат'])
     async def get_wins(self, ctx, user: Member):
         embed = Embed(title=f'Победы {user.mention}')
-        embed.add_field(name='Слова', value=str(get_word_wins(user.id)))
-        embed.add_field(name='Угадай число', value=str(get_num_wins(user.id)))
+        embed.add_field(name='Слова', value=str(get_words_count(str(user.id))))
+        embed.add_field(name='Угадай число', value=str(get_num_wins(str(user.id))))
+        embed.add_field(name='Викторина', value=str(get_quiz_wins(str(user.id))))
         await ctx.send('', embed=embed)
 
     @commands.command()
