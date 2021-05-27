@@ -30,7 +30,7 @@ class GameStats(commands.Cog):
     async def top_words(self, ctx):
         embed = Embed(title='ТОП по игре "Слова"', colour=Colour.gold())
         wins = {
-            f'@{m.display_name}#{m.discriminator}': get_word_wins(m.id) for m in await ctx.guild.fetch_members().flatten() if get_word_wins(m.id) != 0
+            f'@{m.display_name}#{m.discriminator}': get_words_count(m.id) for m in await ctx.guild.fetch_members().flatten() if get_words_count(m.id) != 0
         }
         for k, v in wins.items():
             print(k, v)

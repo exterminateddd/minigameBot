@@ -19,4 +19,5 @@ for filename in listdir('./cogs'):
             logger.error('FAILED to Load Module '+filename[:-3])
             raise e
 
+
 bot.run(get_token())

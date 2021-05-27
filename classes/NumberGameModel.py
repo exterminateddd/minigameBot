@@ -1,6 +1,7 @@
 from json import load, dumps
 from .Number import Number
 from random import randint
+from utils import add_num_wins
 
 
 class NumberGameModel:
@@ -17,8 +18,4 @@ class NumberGameModel:
         self.data['numbers'].append(num.__dict__)
 
     def stop(self, winner_id):
-        data = load(open('data/guessnumber_hist.json', mode='r', encoding='windows-1251'))
-        self.data['winner'] = winner_id
-        data['games'].append(self.data)
-        f_ = open('data/guessnumber_hist.json', mode='w')
-        f_.write(dumps(data, indent=4))
+        add_num_wins(winner_id, 1)
